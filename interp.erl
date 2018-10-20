@@ -50,5 +50,32 @@ boolVal2Bool({bool, B}) ->
 
 -spec valueOf(expType(),envType()) -> valType().
 valueOf(Exp,Env) ->
-    io:format("Not implemented!").
-    %% complete
+    case Exp of ->
+        {numExp, 1, int} ->
+            numVal2Num(int);
+        {idExp, 1, id} ->
+            id.
+        {diffExp, exp1, exp2} ->
+            valueOf(exp1, _Env) - valueOf(exp2, _Env);
+        {plusExp, exp1, exp2} ->
+            valueOf(exp1, _Env) + valueOf(exp2, _Env);
+        {isZeroExp, bool} ->
+            boolVal2Bool(valueOf(bool, _Env));
+        {ifThenElseExp, exp1, exp2, exp3} ->
+            if
+                boolVal2Bool(valueOf(exp1, _Env)) ->
+                    valueOf(exp2, _Env);
+                _ ->
+                    valueOf(exp3, _Env);
+            end.
+        {letExp, id, exp1, exp2} ->
+            valueOf(exp2, env:add(_Env, id, valueOf(exp1)));
+        {procExp, id, exp} ->
+            io:format("Not Implemented.");
+        {appExp, exp1, exp2} ->
+            io:format("Not Implemented.");
+        {exp} ->
+            valueOf(exp, _Env);
+    end.
+
+        

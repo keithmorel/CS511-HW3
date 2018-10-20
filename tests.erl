@@ -32,5 +32,5 @@ ex8() ->
     "zero?(7)".
 
 ex9() ->
-    "3(4)".
+    "let x=1 in let f=proc (y) +(y,x) in let x=2 in f(3) ".
 

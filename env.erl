@@ -5,13 +5,13 @@
 
 -spec new()-> envType().
 new() ->
-    % complete
+    {}.
 
 -spec add(envType(),atom(),valType())-> envType().
 add(Env,Key,Value) ->
-    % complete
+    append(Key, Value, Env).
 
 -spec lookup(envType(),atom())-> valType().
 lookup(Env,Key) -> 
-   % complete
+   fetch(Key, Env);
 
