@@ -54,7 +54,7 @@ valueOf(Exp,Env) ->
         {numExp, 1, int} ->
             numVal2Num(int);
         {idExp, 1, id} ->
-            id.
+            id;
         {diffExp, exp1, exp2} ->
             valueOf(exp1, _Env) - valueOf(exp2, _Env);
         {plusExp, exp1, exp2} ->
