@@ -5,13 +5,13 @@
 
 -spec new()-> envType().
 new() ->
-    {}.
+    dict:new().
 
 -spec add(envType(),atom(),valType())-> envType().
 add(Env,Key,Value) ->
-    append(Key, Value, Env).
+    dict:store(Key, Value, Env).
 
 -spec lookup(envType(),atom())-> valType().
 lookup(Env,Key) -> 
-   fetch(Key, Env);
+    dict:fetch(Key, Env).
 
