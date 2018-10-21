@@ -60,7 +60,7 @@ valueOf(Exp,Env) ->
             env:lookup(Env, Id);
 
         {proc, Var, InnerExp, Dict} ->
-            {Var, InnerExp, Dict};
+            {proc, Var, InnerExp, Dict};
 
         % diff
         {diffExp, Exp1, Exp2} ->
@@ -82,7 +82,7 @@ valueOf(Exp,Env) ->
         % App
         {appExp, {idExp, {id, _, Id}}, Value} ->
             case valueOf(env:lookup(Env, Id),Env) of
-                {Var, InnerExp, Dict} ->
+                {proc, Var, InnerExp, Dict} ->
                     valueOf(InnerExp, env:add(Dict,Var,valueOf(Value,Env)))
             end;
         
