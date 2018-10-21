@@ -88,13 +88,7 @@ valueOf(Exp,Env) ->
 
         % proc
         {procExp, {id,_,Key}, InnerExp} ->
-            InnerExp
-            %case InnerExp of
-                %{plusExp, {idExp, {id, _, Key}}, {numExp, {num, _, Number}}} ->
-                    %ok;
-                %{plusExp, {idExp, {id, _, Key1}}, {idExp, {id, _, Key2}}} ->
-                    %ok1
-            %end
+            env:add(Env, Key, {InnerExp, Env});
 
     end.
 %% complete
