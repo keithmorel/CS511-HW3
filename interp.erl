@@ -59,8 +59,8 @@ valueOf(Exp,Env) ->
         {idExp, {id, _, Id}} ->
             env:lookup(Env, Id);
 
-        {proc, Var, InnerExp, Dict} ->
-            {proc, Var, InnerExp, Dict};
+	{proc, Var, InnerExp, Dict} ->
+	    {proc, Var, InnerExp, Dict};
 
         % diff
         {diffExp, Exp1, Exp2} ->

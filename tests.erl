@@ -5,8 +5,8 @@ start() ->
     lists:map(fun interp:runStr/1,examples()).
 
 examples() ->
-    %[ex1(), ex2(), ex3(), ex4(), ex5(), ex6(), ex7(), ex8(), ex9()].
-    [my7(), my8()].
+    [ex1(), ex2(), ex3(), ex4(), ex5(), ex6(), ex7(), ex8(), ex9()].
+    %[my7(), my8()].
 
 ex1() ->
     "let x=1 in let x=3 in +(x,7)".
