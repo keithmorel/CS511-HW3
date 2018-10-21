@@ -70,6 +70,15 @@ valueOf(Exp,Env) ->
         {plusExp, Exp1, Exp2} ->
             {num, numVal2Num(valueOf(Exp1, Env)) + numVal2Num(valueOf(Exp2, Env))};
 
+        % If
+        {ifThenElseExp, Exp1, Exp2, Exp3} ->
+	    case boolVal2Bool(valueOf(Exp1, Env)) of
+		true ->
+		    valueOf(Exp2, Env);
+		false ->
+		    valueOf(Exp3, Env)
+            end;
+
         % App
         {appExp, {idExp, {id, _, Id}}, Value} ->
             case valueOf(env:lookup(Env, Id),Env) of

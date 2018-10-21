@@ -34,6 +34,8 @@ my3	tests.erl	/^my3() ->$/;"	f	module:tests
 my4	tests.erl	/^my4() ->$/;"	f	module:tests
 my5	tests.erl	/^my5() ->$/;"	f	module:tests
 my6	tests.erl	/^my6() ->$/;"	f	module:tests
+my7	tests.erl	/^my7() ->$/;"	f	module:tests
+my8	tests.erl	/^my8() ->$/;"	f	module:tests
 new	env.erl	/^new() ->$/;"	f	module:env
 numVal2Num	interp.erl	/^numVal2Num({num, N}) ->$/;"	f	module:interp
 parse	parser.erl	/^parse(Tokens) ->$/;"	f	module:parser
