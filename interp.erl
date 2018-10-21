@@ -53,34 +53,33 @@ valueOf(Exp,Env) ->
     case Exp of
         % A number
         {numExp, {num, _, Number}} ->
-            Number;
+            {num, Number};
+
         % An id
         {idExp, {id, _, Id}} ->
             env:lookup(Env, Id);
 
+        {proc, Var, InnerExp, Dict} ->
+            {Var, InnerExp, Dict};
+
         % diff
         {diffExp, Exp1, Exp2} ->
-            valueOf(Exp1,Env) - valueOf(Exp2,Env);
+            {num, numVal2Num(valueOf(Exp1,Env)) - numVal2Num(valueOf(Exp2,Env))};
 
         % Plus
         {plusExp, Exp1, Exp2} ->
-            valueOf(Exp1, Env) + valueOf(Exp2, Env);
+            {num, numVal2Num(valueOf(Exp1, Env)) + numVal2Num(valueOf(Exp2, Env))};
 
         % App
         {appExp, {idExp, {id, _, Id}}, Value} ->
             case valueOf(env:lookup(Env, Id),Env) of
-                {plusExp, Exp1, Value} ->
-                    io:format("ok");
-                {plusExp, Value, Exp2} ->
-                    io:format("ok");
-                {diffExp, Exp1, Exp2} ->
-                    io:format("ok");
-                {procExp, {id, _, Id1}, InnerExp} ->
-                    valueOf(InnerExp, env:add(Env, Id1, valueOf(Value, Env)));
-            end
+                {Var, InnerExp, Dict} ->
+                    valueOf(InnerExp, env:add(Dict,Var,valueOf(Value,Env)))
+            end;
+        
         % isZero
         {isZeroExp, Exp1} ->
-            valueOf(Exp1,Env) == 0;
+            {bool, numVal2Num(valueOf(Exp1,Env)) == 0};
 
         % let
         {letExp, {id,_,Key}, Exp1, InnerExp} ->
@@ -88,7 +87,7 @@ valueOf(Exp,Env) ->
 
         % proc
         {procExp, {id,_,Key}, InnerExp} ->
-            env:add(Env, Key, {InnerExp, Env});
+            {proc, Key, InnerExp, Env}
 
     end.
 %% complete
