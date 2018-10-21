@@ -59,57 +59,42 @@ valueOf(Exp,Env) ->
             env:lookup(Env, Id);
 
         % diff
-        {diffExp, {numExp, {num, _, Number1}}, {numExp, {num, _, Number2}}} ->
-            Number1 - Number2;
-        {diffExp, {numExp, {num, _, Number}}, {idExp, {id, _, Id}}} ->
-            Number - env:lookup(Env,Id);
-        {diffExp, {idExp, {id, _, Id}}, {numExp, {num, _, Number}}} ->
-            env:lookup(Env,Id) - Number;
+        {diffExp, Exp1, Exp2} ->
+            valueOf(Exp1,Env) - valueOf(Exp2,Env);
 
         % Plus
-        {plusExp, {numExp, {num, _, Number1}}, {numExp, {num, _, Number2}}} ->
-            Number1 + Number2;
-        {plusExp, {numExp, {num, _, Number}}, {idExp, {id, _, Id}}} ->
-            env:lookup(Env,Id) + Number;
-        {plusExp, {idExp, {id, _, Id}}, {numExp, {num, _, Number}}} ->
-            env:lookup(Env,Id) + Number;
+        {plusExp, Exp1, Exp2} ->
+            valueOf(Exp1, Env) + valueOf(Exp2, Env);
 
         % App
-        {appExp, {idExp, {id, _, Id}}, {_, {_,_,Value}}} ->
-            case env:lookup(Env, Id) of
-                ok ->
-                    io:format("hey")
-                %{plusExp,{idExp,{id,1,Id}},{numExp,{num,1,Number}}} ->
-                    %io:format("heyhey")
-                    %valueOf({plusExp, {idExp, {id, 1, Id}}, {numExp, {num, 1, Number}}}, Env)
-
-                %{proc, Var, Exp1, Env1} ->
-                    %io:format("hello")
-            end;
-
+        {appExp, {idExp, {id, _, Id}}, Value} ->
+            case valueOf(env:lookup(Env, Id),Env) of
+                {plusExp, Exp1, Value} ->
+                    io:format("ok");
+                {plusExp, Value, Exp2} ->
+                    io:format("ok");
+                {diffExp, Exp1, Exp2} ->
+                    io:format("ok");
+                {procExp, {id, _, Id1}, InnerExp} ->
+                    valueOf(InnerExp, env:add(Env, Id1, valueOf(Value, Env)));
+            end
         % isZero
-        {isZeroExp, {numExp, {num, _, Number}}} ->
-            Number == 0;
-        {isZeroExp, {_, {id, _, Id}}} ->
-            env:lookup(Env, Id) == 0;
+        {isZeroExp, Exp1} ->
+            valueOf(Exp1,Env) == 0;
 
         % let
-        {letExp, {id,_,Key}, {numExp,{num,_,Value}}, InnerExp} ->
-            valueOf(InnerExp,env:add(Env,Key,Value));
-
-        {letExp, {id,_,Key}, Proc, InnerExp} ->
-            valueOf(InnerExp,env:add(Env,Key,Proc));
+        {letExp, {id,_,Key}, Exp1, InnerExp} ->
+            valueOf(InnerExp,env:add(Env,Key,valueOf(Exp1,Env)));
 
         % proc
-        %{procExp, {id,_,Key}, InnerExp} ->
-            %{proc, Key, InnerExp, Env};
         {procExp, {id,_,Key}, InnerExp} ->
-            case InnerExp of
-                {plusExp, {idExp, {id, _, Key}}, {numExp, {num, _, Number}}} ->
-                    io:format("hello1");
-                {plusExp, {idExp, {id, _, Key1}}, {idExp, {id, _, Key2}}} ->
-                    io:format("hello2")
-            end
+            InnerExp
+            %case InnerExp of
+                %{plusExp, {idExp, {id, _, Key}}, {numExp, {num, _, Number}}} ->
+                    %ok;
+                %{plusExp, {idExp, {id, _, Key1}}, {idExp, {id, _, Key2}}} ->
+                    %ok1
+            %end
 
     end.
 %% complete

@@ -28,6 +28,12 @@ interp	interp.erl	/^-module(interp).$/;"	m
 lexer	lexer.erl	/^-module(lexer).$/;"	m
 lookup	env.erl	/^lookup(Env,Key) -> $/;"	f	module:env
 loop	interp.erl	/^loop(InFile,Acc) ->$/;"	f	module:interp
+my1	tests.erl	/^my1() ->$/;"	f	module:tests
+my2	tests.erl	/^my2() ->$/;"	f	module:tests
+my3	tests.erl	/^my3() ->$/;"	f	module:tests
+my4	tests.erl	/^my4() ->$/;"	f	module:tests
+my5	tests.erl	/^my5() ->$/;"	f	module:tests
+my6	tests.erl	/^my6() ->$/;"	f	module:tests
 new	env.erl	/^new() ->$/;"	f	module:env
 numVal2Num	interp.erl	/^numVal2Num({num, N}) ->$/;"	f	module:interp
 parse	parser.erl	/^parse(Tokens) ->$/;"	f	module:parser

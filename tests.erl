@@ -6,24 +6,6 @@ start() ->
 
 examples() ->
     [ex1(), ex2(), ex3(), ex4(), ex5(), ex6(), ex7(), ex8()].
-    %[my1(),my2(),my3(),my4(),my5(),my6()].
-
-%my1() ->
-    %"3".
-
-%my2() ->
-    %"+(3,2)".
-
-%my3() ->
-    %"-(3,2)".
-
-%my4() ->
-    %"zero?(3)".
-%my5() ->
-    %"let x=0 in zero?(x)".
-
-%my6() ->
-    %"let x=5 in -(x,2)".
 
 ex1() ->
     "let x=1 in let x=3 in +(x,7)".
@@ -51,4 +33,21 @@ ex8() ->
 
 ex9() ->
     "let x=1 in let f=proc(y) +(y,x) in let x=2 in f(3)".
+
+my1() ->
+    "3".
+
+my2() ->
+    "+(3,2)".
+
+my3() ->
+    "-(3,2)".
+
+my4() ->
+    "zero?(3)".
+my5() ->
+    "let x=0 in zero?(x)".
+
+my6() ->
+    "let x=5 in -(x,2)".
 
